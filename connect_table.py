@@ -1,9 +1,11 @@
-import sqlite3
+from pymongo import MongoClient
 
 
-conn = sqlite3.connect('database.db')
-print("Connected to database successfully ")
+client = MongoClient(
+    'mongodb+srv://admin:admin@cluster0.zqdyzpj.mongodb.net/?retryWrites=true&w=majority')
 
-conn.execute('CREATE TABLE students (name TEXT PRIMARY KEY, email TEXT)')
+db = client["Youtube-Downloader"]
+collection = db["Youtube-Downloader"]
 
-conn.close()
+videos = db.videos
+playlists = db.playlists

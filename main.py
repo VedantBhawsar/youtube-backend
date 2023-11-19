@@ -9,40 +9,15 @@ from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy import JSON
 from flask_cors import CORS
+import pprint
+from connect_table import videos
+import os
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-db = SQLAlchemy(app)
+
 
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
-
-
-class Video(db.Model):
-    __tablename__ = 'videos'
-
-    video_id = db.Column(db.String, primary_key=True)
-    title = db.Column(db.String(50), nullable=False)
-    thumbnail = db.Column(JSON, nullable=False)
-    quality = db.Column(JSON, nullable=False)
-
-
-class Playlist(db.Model):
-    __tablename__ = 'playlists'
-
-    playlist_id = db.Column(db.String, primary_key=True)
-    title = db.Column(db.String(50), nullable=False)
-    thumbnail = db.Column(JSON, nullable=True)
-    quality = db.Column(JSON, nullable=False)
-
-
-def __repr__(self):
-    return f"Name : {self.first_name}, Age: {self.age}"
-
-
-with app.app_context():
-    db.create_all()
-
 
 cloudinary.config(
     cloud_name="dydrdxj16",
@@ -62,13 +37,7 @@ def get_video():
     if not url:
         return jsonify({"error": "URL parameter is missing"}, 400)
     video = get_info.get_video_info(url)
-    video_data = {
-        "video_id": video.video_id,
-        "title": video.title,
-        "thumbnail": json.loads(video.thumbnail),
-        "quality": json.loads(video.quality)
-    }
-    return jsonify(video_data)
+    return video
 
 
 @app.route('/playlist/get')
@@ -77,12 +46,8 @@ def get_playlist():
     if not url:
         return jsonify({"error": "URL parameter is missing"}, 400)
     playlist = get_info.get_playlist_info(url)
-    playlist_data = {
-        "playlist_id": playlist.playlist_id,
-        "title": playlist.title,
-        "quality": json.loads(playlist.quality),
-    }
-    return jsonify(playlist_data)
+    print(playlist)
+    return playlist
 
 
 @app.route('/video/download', methods=['POST'])
@@ -115,4 +80,6 @@ def not_found(error):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
