@@ -4,12 +4,7 @@ import cloudinary
 import get_info
 from video_downloader import video_download
 from playlist_downloader import download_playlist
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.dialects.postgresql import ARRAY
-from sqlalchemy.ext.mutable import MutableDict
-from sqlalchemy import JSON
 from flask_cors import CORS
-import pprint
 from connect_table import videos
 import os
 
@@ -18,12 +13,6 @@ app = Flask(__name__)
 
 
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
-
-cloudinary.config(
-    cloud_name="dydrdxj16",
-    api_key="415477486895499",
-    api_secret="ME8tqQx09MiU5yHgMj1kWpq0MV0"
-)
 
 
 @app.route("/")
@@ -55,7 +44,6 @@ def video():
     data = request.json
     try:
         url = video_download(data['url'], data['resolution'])
-
         return jsonify({"url": url})
     except Exception as e:
         print(e.message)
@@ -81,5 +69,4 @@ def not_found(error):
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
-
+    app.run(host="0.0.0.0", port=port, debug=True)
