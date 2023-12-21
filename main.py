@@ -1,6 +1,5 @@
 import json
 from flask import Flask, request, jsonify
-# import cloudinary
 import get_info
 from video_downloader import video_download
 from playlist_downloader import download_playlist
