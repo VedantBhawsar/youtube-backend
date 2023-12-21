@@ -3,8 +3,8 @@ from pytube import YouTube, Playlist
 import re
 from connect_table import videos, playlists
 import main
-from bs4 import BeautifulSoup
-import requests
+# from bs4 import BeautifulSoup
+# import requests
 
 
 def is_video_info_available_in_db(yt):
