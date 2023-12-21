@@ -1,19 +1,10 @@
 from pytube import YouTube
-import cloudinary
-from cloudinary import uploader
-import shutil
 from mega import Mega
 import os
 
 
 mega = Mega()
 m = mega.login('vedantbhavsar.a10@gmail.com', 'password123@')
-
-cloudinary.config(
-    cloud_name="dydrdxj16",
-    api_key="415477486895499",
-    api_secret="ME8tqQx09MiU5yHgMj1kWpq0MV0"
-)
 
 
 def video_download(url,  resolution):
