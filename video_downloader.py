@@ -1,10 +1,10 @@
 from pytube import YouTube
-from mega import Mega
+# from mega import Mega
 import os
 
 
-mega = Mega()
-m = mega.login('vedantbhavsar.a10@gmail.com', 'password123@')
+# mega = Mega()
+# m = mega.login('vedantbhavsar.a10@gmail.com', 'password123@')
 
 
 def video_download(url,  resolution):
