@@ -1,6 +1,6 @@
 Flask==3.0.0
 gunicorn==21.2.0
 Flask-Cors==4.0.0
-Mega==0.2.11
+mega==1.0.8
 pytube==15.0.0
 pymongo==4.6.1
